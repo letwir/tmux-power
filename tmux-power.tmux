@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #===============================================================================
-#   Author: Wenxuan
-#    Email: wenxuangm@gmail.com
-#  Created: 2018-04-05 17:37
+#   Author: Wenxuan,letwir
+#    Email: wenxuangm@gmail.com,letwirwinkuru@gmail.com
+#  Created: 2025-12-07 22:08
 #===============================================================================
 
 # $1: option
@@ -20,8 +20,8 @@ tmux_set() {
 }
 
 # Options
-rarrow=$(tmux_get '@tmux_power_right_arrow_icon' '')
-larrow=$(tmux_get '@tmux_power_left_arrow_icon' '')
+rarrow=$(tmux_get '@tmux_power_right_arrow_icon' '')
+larrow=$(tmux_get '@tmux_power_left_arrow_icon' '')
 upload_speed_icon=$(tmux_get '@tmux_power_upload_speed_icon' '󰕒')
 download_speed_icon=$(tmux_get '@tmux_power_download_speed_icon' '󰇚')
 session_icon="$(tmux_get '@tmux_power_session_icon' '')"
@@ -116,15 +116,16 @@ fi
 
 # upload speed
 if "$show_upload_speed"; then
-    LS="$LS#[fg=$TC,bg=$G1] $upload_speed_icon#{upload_speed}#[fg=$G1,bg=$TC,nobold]$rarrow"
+    LS="$LS#[fg=$TC,bg=$G1] $upload_speed_icon#{upload_speed}#[fg=$G1,bg=$G0,nobold]$rarrow"
 else
-    LS="$LS#[fg=$TC,bg=$G2,nobold] $rarrow"
+    LS="$LS#[fg=$TC,bg=$G1,nobold]"
 fi
-tmux_set status-left "$LS"
 
 if [[ $prefix_highlight_pos == 'L' || $prefix_highlight_pos == 'LR' ]]; then
     LS="$LS#{prefix_highlight}"
 fi
+
+tmux_set status-left "$LS"
 
 
 # Right side of status bar
@@ -137,14 +138,15 @@ fi
 if "$show_web_reachable"; then
     RS=" #{web_reachable_status} $RS"
 fi
+
 if [[ $prefix_highlight_pos == 'R' || $prefix_highlight_pos == 'LR' ]]; then
     RS="#{prefix_highlight}$RS"
 fi
 tmux_set status-right "$RS"
 
 # Window status format
-tmux_set window-status-format         "#[fg=$G0,bg=$G2]$rarrow#[fg=$TC,bg=$G2] #I:#W#F #[fg=$G2,bg=$G0]$rarrow"
-tmux_set window-status-current-format "#[fg=$G0,bg=$TC]$rarrow#[fg=$G0,bg=$TC,bold] #I:#W#F #[fg=$TC,bg=$G0,nobold]$rarrow"
+#tmux_set window-status-format         "#[fg=$G0,bg=$G2]$rarrow#[fg=$TC,bg=$G2] #I:#W#F #[fg=$G2,bg=$G0]$rarrow"
+#tmux_set window-status-current-format "#[fg=$G0,bg=$TC]$rarrow#[fg=$G0,bg=$TC,bold] #I:#W#F #[fg=$TC,bg=$G0,nobold]$rarrow"
 
 # Window status style
 tmux_set window-status-style          "fg=$TC,bg=$G0,none"
